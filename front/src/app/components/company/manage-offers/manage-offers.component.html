@@ -1,0 +1,69 @@
+<app-company-navbar></app-company-navbar>
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12">
+      <h2>Gestion des offres</h2>
+      
+      <!-- Message d'erreur -->
+      <div *ngIf="error" class="alert alert-danger">
+        {{ error }}
+      </div>
+
+      <!-- Loader -->
+      <div *ngIf="loading" class="text-center">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Chargement...</span>
+        </div>
+      </div>
+
+      <!-- Liste des offres -->
+      <div class="table-responsive mt-3">
+        <table class="table table-striped table-hover">
+          <thead class="table-dark">
+            <tr>
+              <th>Titre</th>
+              <th>Description</th>
+              <th>Localisation</th>
+              <th>Diplôme</th>
+              <th>Salaire</th>
+              <th>Statut</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let offer of offers">
+              <td>{{ offer.title }}</td>
+              <td>{{ offer.description | slice:0:50 }}...</td>
+              <td>{{ offer.location }}</td>
+              <td>{{ offer.degree }}</td>
+              <td>{{ offer.salary }} DT</td>
+              <td>
+                <span [ngClass]="{
+                  'badge bg-warning': offer.status === 'Pending',
+                  'badge bg-success': offer.status === 'Accepted',
+                  'badge bg-danger': offer.status === 'Rejected'
+                }">
+                  {{ offer.status }}
+                </span>
+              </td>
+              <td>
+                <button *ngIf="offer.status === 'Pending'"
+                        class="btn btn-success btn-sm me-2"
+                        (click)="acceptOffer(offer.id)">
+                  <i class="fas fa-check me-1"></i> Accepter
+                </button>
+                <button class="btn btn-danger btn-sm"
+                        (click)="deleteOffer(offer.id)">
+                  <i class="fas fa-trash me-1"></i> Supprimer
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="offers.length === 0 && !loading">
+              <td colspan="7" class="text-center">Aucune offre disponible</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

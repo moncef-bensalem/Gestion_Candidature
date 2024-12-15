@@ -1,0 +1,11 @@
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-header">
+      <h2>Bienvenue {{ currentUser?.name || currentUser?.email }}</h2>
+    </div>
+    <div class="card-body">
+      <p>Vous êtes connecté avec succès !</p>
+      <button class="btn btn-danger" (click)="logout()">Se déconnecter</button>
+    </div>
+  </div>
+</div>

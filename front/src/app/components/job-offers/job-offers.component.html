@@ -1,0 +1,96 @@
+<app-navbar></app-navbar>
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12">
+      <h2>Offres d'emploi en attente</h2>
+      
+      <div *ngIf="loading" class="text-center">
+        <div class="spinner-border text-primary" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+      <div *ngIf="error" class="alert alert-danger">
+        {{ error }}
+      </div>
+
+      <!-- Grid des offres -->
+      <div class="row">
+        <div class="col-md-4 mb-4" *ngFor="let offer of pendingOffers">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title">{{ offer.title }}</h5>
+              <p class="card-text">{{ offer.description }}</p>
+              <div class="mb-2">
+                <span class="badge bg-primary me-2" *ngIf="offer.degree">{{ offer.degree }}</span>
+                <span class="badge bg-info">{{ offer.salary }} Dt</span>
+              </div>
+              <p class="card-text">
+                <small class="text-muted">
+                  <i class="fas fa-map-marker-alt me-1"></i> {{ offer.location }}
+                </small>
+              </p>
+            </div>
+            <div class="card-footer bg-transparent">
+              <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#applicationModal" (click)="openApplicationModal(offer)">
+                Postuler
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="applicationModal" tabindex="-1" aria-labelledby="applicationModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="applicationModalLabel">
+          Postuler à : {{ selectedOffer?.title }}
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="applicationForm" (ngSubmit)="submitApplication()">
+          <div class="mb-3">
+            <label for="name" class="form-label">Nom complet</label>
+            <input type="text" class="form-control" id="name" formControlName="name"
+                   [ngClass]="{ 'is-invalid': submitted && f['name'].errors }">
+            <div class="invalid-feedback" *ngIf="submitted && f['name'].errors">
+              Le nom est requis
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="address" class="form-label">Adresse</label>
+            <input type="text" class="form-control" id="address" formControlName="address"
+                   [ngClass]="{ 'is-invalid': submitted && f['address'].errors }">
+            <div class="invalid-feedback" *ngIf="submitted && f['address'].errors">
+              L'adresse est requise
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="phone" class="form-label">Numéro de téléphone</label>
+            <input type="tel" class="form-control" id="phone" formControlName="phone"
+                   [ngClass]="{ 'is-invalid': submitted && f['phone'].errors }">
+            <div class="invalid-feedback" *ngIf="submitted && f['phone'].errors">
+              Un numéro de téléphone valide est requis (10 chiffres)
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+            <button type="submit" class="btn btn-primary" [disabled]="loading">
+              <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+              Envoyer la candidature
+            </button>
+          </div>
+          
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

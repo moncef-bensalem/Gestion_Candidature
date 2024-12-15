@@ -1,0 +1,208 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header text-center">
+          <h2>Inscription</h2>
+          <div class="btn-group" role="group">
+            <button type="button" class="btn btn-outline-primary"
+                    [class.active]="userType === 'agent'"
+                    (click)="onUserTypeChange('agent')">
+              Agent
+            </button>
+            <button type="button" class="btn btn-outline-primary"
+                    [class.active]="userType === 'company'"
+                    (click)="onUserTypeChange('company')">
+              Entreprise
+            </button>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <!-- Type d'utilisateur -->
+            <div class="form-group mb-3">
+              <label for="userType">Type d'utilisateur</label>
+              <select
+                class="form-control"
+                id="userType"
+                formControlName="userType"
+                [ngClass]="{ 'is-invalid': submitted && f['userType'].errors }"
+              >
+                <option value="">Sélectionnez un type</option>
+                <option value="agent">Agent</option>
+                <option value="company">Entreprise</option>
+              </select>
+              <div *ngIf="submitted && f['userType'].errors" class="invalid-feedback">
+                <div *ngIf="f['userType'].errors['required']">Type d'utilisateur requis</div>
+              </div>
+            </div>
+
+            <!-- Champs pour l'agent -->
+            <div *ngIf="userType === 'agent'">
+              <div class="form-group mb-3">
+                <label for="email">Email</label>
+                <input 
+                  type="email" 
+                  class="form-control" 
+                  id="email" 
+                  formControlName="email"
+                  [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
+                >
+                <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                  <div *ngIf="f['email'].errors['required']">Email requis</div>
+                  <div *ngIf="f['email'].errors['email']">Email invalide</div>
+                </div>
+              </div>
+
+              <div class="form-group mb-3">
+                <label for="password">Mot de passe</label>
+                <input 
+                  type="password" 
+                  class="form-control" 
+                  id="password" 
+                  formControlName="password"
+                  [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"
+                >
+                <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+                  <div *ngIf="f['password'].errors['required']">Mot de passe requis</div>
+                  <div *ngIf="f['password'].errors['minlength']">Le mot de passe doit contenir au moins 4 caractères</div>
+                </div>
+              </div>
+
+              <div class="form-group mb-3">
+                <label for="confirmPassword">Confirmer le mot de passe</label>
+                <input 
+                  type="password" 
+                  class="form-control" 
+                  id="confirmPassword" 
+                  formControlName="confirmPassword"
+                  [ngClass]="{ 'is-invalid': submitted && (f['confirmPassword'].errors || registerForm.hasError('passwordMismatch')) }"
+                >
+                <div *ngIf="submitted && (f['confirmPassword'].errors || registerForm.hasError('passwordMismatch'))" class="invalid-feedback">
+                  <div *ngIf="f['confirmPassword'].errors?.['required']">Confirmation du mot de passe requise</div>
+                  <div *ngIf="registerForm.hasError('passwordMismatch')">Les mots de passe ne correspondent pas</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Champs pour l'entreprise -->
+            <div *ngIf="userType === 'company'">
+              <div class="form-group mb-3">
+                <label for="login">Login</label>
+                <input 
+                  type="text" 
+                  class="form-control" 
+                  id="login" 
+                  formControlName="login"
+                  [ngClass]="{ 'is-invalid': submitted && f['login'].errors }"
+                >
+                <div *ngIf="submitted && f['login'].errors" class="invalid-feedback">
+                  <div *ngIf="f['login'].errors['required']">Login requis</div>
+                  <div *ngIf="f['login'].errors['minlength']">Login trop court</div>
+                </div>
+              </div>
+
+              <div class="form-group mb-3">
+                <label for="name">Nom de l'entreprise</label>
+                <input 
+                  type="text" 
+                  class="form-control" 
+                  id="name" 
+                  formControlName="name"
+                  [ngClass]="{ 'is-invalid': submitted && f['name'].errors }"
+                >
+                <div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
+                  <div *ngIf="f['name'].errors['required']">Nom requis</div>
+                </div>
+              </div>
+
+              <div class="form-group mb-3">
+                <label for="email">Email</label>
+                <input 
+                  type="email" 
+                  class="form-control" 
+                  id="email" 
+                  formControlName="email"
+                  [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
+                >
+                <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                  <div *ngIf="f['email'].errors['required']">Email requis</div>
+                  <div *ngIf="f['email'].errors['email']">Email invalide</div>
+                </div>
+              </div>
+
+              <div class="form-group mb-3">
+                <label for="phone">Téléphone</label>
+                <input 
+                  type="text" 
+                  class="form-control" 
+                  id="phone" 
+                  formControlName="phone"
+                  [ngClass]="{ 'is-invalid': submitted && f['phone'].errors }"
+                >
+                <div *ngIf="submitted && f['phone'].errors" class="invalid-feedback">
+                  <div *ngIf="f['phone'].errors['required']">Téléphone requis</div>
+                </div>
+              </div>
+
+              <div class="form-group mb-3">
+                <label for="address">Adresse</label>
+                <input 
+                  type="text" 
+                  class="form-control" 
+                  id="address" 
+                  formControlName="address"
+                  [ngClass]="{ 'is-invalid': submitted && f['address'].errors }"
+                >
+                <div *ngIf="submitted && f['address'].errors" class="invalid-feedback">
+                  <div *ngIf="f['address'].errors['required']">Adresse requise</div>
+                </div>
+              </div>
+
+              <div class="form-group mb-3">
+                <label for="password">Mot de passe</label>
+                <input 
+                  type="password" 
+                  class="form-control" 
+                  id="password" 
+                  formControlName="password"
+                  [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"
+                >
+                <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+                  <div *ngIf="f['password'].errors['required']">Mot de passe requis</div>
+                  <div *ngIf="f['password'].errors['minlength']">Le mot de passe doit contenir au moins 8 caractères</div>
+                </div>
+              </div>
+
+              <div class="form-group mb-3">
+                <label for="confirmPassword">Confirmer le mot de passe</label>
+                <input 
+                  type="password" 
+                  class="form-control" 
+                  id="confirmPassword" 
+                  formControlName="confirmPassword"
+                  [ngClass]="{ 'is-invalid': submitted && (f['confirmPassword'].errors || registerForm.hasError('passwordMismatch')) }"
+                >
+                <div *ngIf="submitted && (f['confirmPassword'].errors || registerForm.hasError('passwordMismatch'))" class="invalid-feedback">
+                  <div *ngIf="f['confirmPassword'].errors?.['required']">Confirmation du mot de passe requise</div>
+                  <div *ngIf="registerForm.hasError('passwordMismatch')">Les mots de passe ne correspondent pas</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="d-grid">
+              <button class="btn btn-primary" type="submit" [disabled]="loading">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+                S'inscrire
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div class="card-footer text-center">
+          Déja un compte ? <a routerLink="/login">Connectez-vous</a>        </div>
+      </div>
+    </div>
+  </div>
+</div>

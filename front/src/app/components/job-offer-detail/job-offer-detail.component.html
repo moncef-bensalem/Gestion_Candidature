@@ -1,0 +1,35 @@
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-body" *ngIf="offer">
+      <h2 class="card-title">{{offer.title}}</h2>
+      <h6 class="card-subtitle mb-2 text-muted">{{offer.company}}</h6>
+      <hr>
+      <div class="row">
+        <div class="col-md-8">
+          <h5>Description du poste</h5>
+          <p>{{offer.description}}</p>
+          
+          <ng-container *ngIf="offer.requiredSkills && offer.requiredSkills.length > 0">
+            <h5>Compétences requises</h5>
+            <ul>
+              <li *ngFor="let skill of offer.requiredSkills">{{skill}}</li>
+            </ul>
+          </ng-container>
+
+          <h5>Informations supplémentaires</h5>
+          <p><strong>Localisation:</strong> {{offer.location}}</p>
+          <p *ngIf="offer.contractType"><strong>Type de contrat:</strong> {{offer.contractType}}</p>
+          <p><strong>Salaire:</strong> {{offer.salary}} Dt</p>
+          <p *ngIf="offer.degree"><strong>Diplôme requis:</strong> {{offer.degree}}</p>
+        </div>
+      </div>
+      
+      <div class="mt-4">
+        <button class="btn btn-primary" (click)="applyToOffer()" [disabled]="isApplied">
+          {{isApplied ? 'Déjà postulé' : 'Postuler'}}
+        </button>
+        <button class="btn btn-secondary ms-2" routerLink="/job-offers">Retour aux offres</button>
+      </div>
+    </div>
+  </div>
+</div>

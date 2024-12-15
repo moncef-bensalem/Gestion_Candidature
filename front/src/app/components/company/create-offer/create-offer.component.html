@@ -1,0 +1,101 @@
+<app-company-navbar></app-company-navbar>
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="text-center">Créer une nouvelle offre</h2>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="offerForm" (ngSubmit)="onSubmit()">
+            <!-- Title -->
+            <div class="form-group mb-3">
+              <label for="title">Titre de l'offre</label>
+              <input type="text" class="form-control" id="title" formControlName="title" 
+                     [ngClass]="{ 'is-invalid': offerForm.get('title')?.errors && offerForm.get('title')?.touched }">
+              <div class="invalid-feedback" *ngIf="offerForm.get('title')?.errors?.['required']">
+                Le titre est requis
+              </div>
+            </div>
+
+            <!-- Description -->
+            <div class="form-group mb-3">
+              <label for="description">Description</label>
+              <textarea class="form-control" id="description" formControlName="description" rows="4"
+                        [ngClass]="{ 'is-invalid': offerForm.get('description')?.errors && offerForm.get('description')?.touched }">
+              </textarea>
+              <div class="invalid-feedback" *ngIf="offerForm.get('description')?.errors?.['required']">
+                La description est requise
+              </div>
+            </div>
+
+            <!-- Location -->
+            <div class="form-group mb-3">
+              <label for="location">Localisation</label>
+              <input type="text" class="form-control" id="location" formControlName="location"
+                     [ngClass]="{ 'is-invalid': offerForm.get('location')?.errors && offerForm.get('location')?.touched }">
+              <div class="invalid-feedback" *ngIf="offerForm.get('location')?.errors?.['required']">
+                La localisation est requise
+              </div>
+            </div>
+
+            <!-- Degree -->
+            <div class="form-group mb-3">
+              <label for="degree">Diplôme requis</label>
+              <select class="form-control" id="degree" formControlName="degree"
+                      [ngClass]="{ 'is-invalid': offerForm.get('degree')?.errors && offerForm.get('degree')?.touched }">
+                <option value="">Sélectionnez un diplôme</option>
+                <option value="BAC+2">BAC+2</option>
+                <option value="BAC+3">BAC+3</option>
+                <option value="BAC+5">BAC+5</option>
+                <option value="INGENIEUR">Ingénieur</option>
+              </select>
+              <div class="invalid-feedback" *ngIf="offerForm.get('degree')?.errors?.['required']">
+                Le diplôme est requis
+              </div>
+            </div>
+
+            <!-- Salary -->
+            <div class="form-group mb-3">
+              <label for="salary">Salaire</label>
+              <input type="number" class="form-control" id="salary" formControlName="salary"
+                     [ngClass]="{ 'is-invalid': offerForm.get('salary')?.errors && offerForm.get('salary')?.touched }">
+              <div class="invalid-feedback" *ngIf="offerForm.get('salary')?.errors?.['required']">
+                Le salaire est requis
+              </div>
+            </div>
+
+            <!-- Profile ID -->
+            <div class="form-group mb-3">
+              <label for="profileId">Type de profil</label>
+              <select class="form-control" id="profileId" formControlName="profileId"
+                      [ngClass]="{ 'is-invalid': offerForm.get('profileId')?.errors && offerForm.get('profileId')?.touched }">
+                <option value="">Sélectionnez un profil</option>
+                <option value="1">Développeur</option>
+                <option value="2">Designer</option>
+                <option value="3">Chef de projet</option>
+                <option value="4">Commercial</option>
+              </select>
+              <div class="invalid-feedback" *ngIf="offerForm.get('profileId')?.errors?.['required']">
+                Le type de profil est requis
+              </div>
+            </div>
+
+            <!-- Error message -->
+            <div *ngIf="error" class="alert alert-danger">
+              {{ error }}
+            </div>
+
+            <!-- Submit button -->
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary" [disabled]="loading || offerForm.invalid">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+                Créer l'offre
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

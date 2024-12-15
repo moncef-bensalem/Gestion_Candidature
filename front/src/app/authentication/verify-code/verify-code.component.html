@@ -1,0 +1,41 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header text-center">
+          <h2>Vérification du code</h2>
+          <p class="text-muted" *ngIf="userType">Type d'utilisateur : {{userType}}</p>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="verifyForm" (ngSubmit)="onSubmit()">
+            <div class="form-group mb-3">
+              <label for="code">Code de vérification</label>
+              <input 
+                type="text" 
+                class="form-control" 
+                id="code" 
+                formControlName="code"
+                [ngClass]="{ 'is-invalid': submitted && f['code'].errors }"
+                placeholder="Entrez le code reçu"
+                autocomplete="off"
+              >
+              <div *ngIf="submitted && f['code'].errors" class="invalid-feedback">
+                <div *ngIf="f['code'].errors['required']">Code requis</div>
+                <div *ngIf="f['code'].errors['pattern']">Le code doit contenir uniquement des chiffres</div>
+              </div>
+            </div>
+
+            <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+
+            <div class="d-grid">
+              <button class="btn btn-primary" type="submit" [disabled]="loading">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+                Vérifier
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

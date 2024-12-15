@@ -1,0 +1,48 @@
+.card {
+  margin-bottom: 1rem;
+  background: white;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.card-title {
+  margin-bottom: 1rem;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.display-4 {
+  margin-bottom: 0;
+  color: #007bff;
+  font-weight: bold;
+}
+
+.btn {
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+}
+
+.btn:last-child {
+  margin-right: 0;
+}
+
+h2 {
+  color: #2c3e50;
+  margin-bottom: 2rem;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .card {
+    margin-bottom: 1.5rem;
+  }
+  
+  .btn {
+    width: 100%;
+    margin-right: 0;
+  }
+}

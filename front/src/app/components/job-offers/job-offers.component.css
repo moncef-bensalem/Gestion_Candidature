@@ -1,0 +1,32 @@
+.card {
+  transition: transform 0.2s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.badge {
+  padding: 0.5em 1em;
+}
+
+.badge-warning {
+  background-color: #ffc107;
+  color: #000;
+}
+
+.badge-success {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.badge-danger {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.badge-secondary {
+  background-color: #6c757d;
+  color: #fff;
+}
