@@ -20,6 +20,7 @@ public class AgentService {
     private static final Logger logger = LoggerFactory.getLogger(AgentService.class);
     private final AgentRepository agentRepository;
     private final PasswordEncoder passwordEncoder;
+    private int test;
 
     public AgentService(AgentRepository agentRepository, PasswordEncoder passwordEncoder) {
         this.agentRepository = agentRepository;
